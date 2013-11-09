@@ -20,17 +20,26 @@ Template.chatroom.helpers({
 });
 
 Template.chatroom.events({
-  'keyup input': function(e) {
+  'input, keypress input': function(e) {
     if (e.keyCode === 13) {
-      $(e.target).val("").trigger("keyup");
-
+      $(e.target).val("");
+      var message = $('#sender').clone();
+      $("#messages").css("position", "relative").append(message);
+      message.css("position", "absolute").animate({
+        'top': "-100px",
+        'left': "0",
+        'zoom': "200%",
+        'opacity': "0"
+      }, 500, function() {
+        message.remove();
+      });
     }
     var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
     $("#sender").html($(e.target).val()).append(cursorHTML);
   }
 });
 
-Template.chatroom.rendered = function() {
+Template.chatroom.created = function() {
 
   var chat = $("#chat"),
       messages = $("#messages"),
