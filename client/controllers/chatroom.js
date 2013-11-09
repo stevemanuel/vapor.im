@@ -18,6 +18,13 @@ Template.chatroom.helpers({
     var senderId = $.cookie(Session.get("currentChatroomId"));
     var theirMessage = Vapors.find({_id: { $ne: senderId}}).fetch()[0].message;
     return theirMessage || "recipient's message...";
+  },
+  roomName: function() {
+    return Session.get('roomName');
+  },
+
+  link: function() {
+    return Session.get('currentChatroomId');
   }
 });
 

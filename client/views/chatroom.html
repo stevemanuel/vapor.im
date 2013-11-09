@@ -1,4 +1,6 @@
 <template name="chatroom">
+  <h1>{{roomName}}</h1>
+  <h3>Share this link: https://www.vapor.im/room/{{link}}</h3>
   <div id="messages">
     <div id="sender"><span class="cursor">|&nbsp;</span>your message...</div>
     {{#if notAlone}}

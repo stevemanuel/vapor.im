@@ -11,6 +11,7 @@ Template.home.events({
 
     var personId = Random.id();
     Session.set('currentPersonId', personId);
+    Session.set('roomName', roomName);
     var person = {id: personId, message: ""};
 
     //Chatrooms.update(chatroomId, { $push: { people: person }});
