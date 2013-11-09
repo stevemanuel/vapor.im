@@ -23,11 +23,20 @@ Template.chatroom.helpers({
   },
 
   roomName: function() {
-    return Session.get('roomName');
+    var chatRoom = Chatrooms.findOne({permalink: Session.get('currentChatroomId')});
+    if(chatRoom === undefined) {
+      return "";
+    } else {
+      return chatRoom.roomName;
+    }
   },
 
   link: function() {
     return Session.get('currentChatroomId');
+  },
+
+  senderMessage: function() {
+    return $("#chat").val();
   }
 });
 
@@ -37,6 +46,7 @@ var createVapor = function(chatroomId) {
 };
 
 Template.chatroom.rendered = function () {
+  console.log("rendered called");
   var self = this;
 
   var currentChatroomId = Session.get('currentChatroomId');
@@ -50,10 +60,12 @@ Template.chatroom.rendered = function () {
     var myVaporId =  $.cookie(currentChatroomId);
     var myVapor = Vapors.findOne(myVaporId);
 
+    /*
     if (typeof myVapor === "undefined") {
       createVapor(currentChatroomId);
       console.log("created vapor for previous user");
     }
+    */
   } else {
 
     if (currentVaporCount == 0) {
@@ -65,16 +77,14 @@ Template.chatroom.rendered = function () {
     }
   }
 
-  var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
-  $("#receiver span.cursor").remove();
-  $("#receiver").append(cursorHTML);
-
-  $("#sender").on('click', function(e) { $("#chat").focus() })
+  $("#sender").one('click', function(e) { $("#chat").focus() })
   $("#chat").focus()
 };
 
+Template.chatroom.preserve(["#sender"]);
+
 Template.chatroom.events({
-  'input, keypress input': function(e) {
+  '#chat, keypress #chat': function(e) {
     var currentChatroomId = Session.get('currentChatroomId');
     var newMessage = $(e.target).val();
     Vapors.update($.cookie(currentChatroomId), {$set: {message: newMessage}});
@@ -93,12 +103,15 @@ Template.chatroom.events({
         message.remove();
       });
     }
+
+    console.log("keypress sender");
     var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
     $("#sender").html($(e.target).val()).append(cursorHTML);
   }
 });
 
 Template.chatroom.created = function() {
+  console.log("created called");
 
   var chat = $("#chat"),
       messages = $("#messages"),
@@ -128,7 +141,15 @@ Template.chatroom.created = function() {
 
   Meteor.setInterval(blinkCursor, 500);
   Meteor.setInterval(updateHeartbeat, 10000);
+// <<<<<<< HEAD
   
+// =======
+
+//   var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
+//   $("#receiver span.cursor").remove();
+//   $("#receiver").append(cursorHTML);
+
+// >>>>>>> 05716680ebca848a0b6f628b3a45a4528446f208
 };
 
 Template.chatroom.destroyed = function() {

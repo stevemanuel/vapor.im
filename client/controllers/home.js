@@ -7,11 +7,10 @@ Template.home.events({
       } else {
         var roomName = permalink;
     };
-    var chatroomId = Chatrooms.insert({people: [], permalink: permalink});
+    var chatroomId = Chatrooms.insert({people: [], permalink: permalink, roomName: roomName});
 
     var personId = Random.id();
     Session.set('currentPersonId', personId);
-    Session.set('roomName', roomName);
     var person = {id: personId, message: ""};
 
     //Chatrooms.update(chatroomId, { $push: { people: person }});

@@ -1,6 +1,4 @@
 <template name="chatroom">
-  <h1>{{roomName}}</h1>
-  <h3>Share this link: https://www.vapor.im/room/{{link}}</h3>
 <div id="container">
   <div id="messages">
   	{{#if notAlone}}
@@ -8,9 +6,18 @@
       {{else}}
         <div>Waiting for participant to join...</div>
     {{/if}}
-    <div id="sender"><span class="cursor">|&nbsp;</span></div>
+
+     <div id="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
   </div>
 
   <input type="text" id="chat" style="opacity:0; filter:alpha(opacity=0);">
+ </div>
+
+ <div style="position:fixed; bottom: 0px; width: 100%; background-color: white; opacity: 0.6;">
+ 	<div style="margin: 0 auto; max-width: 440px">
+ 		<div style="margin: 20px 0;">
+ 			<input type="text" name="country" value="https://www.vapor.im/room/{{link}}" style="font-size: 16px; font-style:'Helvetica' font-weight: lighter; margin: 0; padding: 5px; width: 400px;"  readonly/>
+ 		</div>
+ 	</div>
  </div>
 </template>
