@@ -1,15 +1,17 @@
 Template.chatroom.helpers({
   status: function() {
-    Chatrooms.findOne({
+
+    var chatroom = Chatrooms.findOne({
       permalink: Session.get('currentChatroomId')
+
     }, function(error, data) {
-      if (!error) {
-        if (data.people.length < 2) {
-          return "alone!"
-        }
-      }
     });
-  
+
+    if(chatroom.people.length < 2) {
+      return "ALONE";
+    } else {
+      return "HAZ FRiends!";
+    }
   }
 });
 

@@ -11,6 +11,7 @@ Template.home.events({
     Chatrooms.update(chatroomId, { $push: { people: person }});
 
     Session.set('currentChatroomId', permalink);
+    Deps.flush();
 
     Meteor.Router.to("/room/" + permalink);
   }
