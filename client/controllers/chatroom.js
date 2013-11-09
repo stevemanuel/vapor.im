@@ -15,9 +15,11 @@ Template.chatroom.helpers({
     }
   },
   receiverMessage: function() {
+    console.log('receiverMessage called');
+
     var senderId = $.cookie(Session.get("currentChatroomId"));
     var theirMessage = Vapors.find({_id: { $ne: senderId}}).fetch()[0].message;
-    return theirMessage || "recipient's message...";
+    return theirMessage;
   }
 });
 
@@ -54,6 +56,10 @@ Template.chatroom.rendered = function () {
       alert("no new Vapor for you");
     }
   }
+
+  var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
+  $("#receiver span.cursor").remove();
+  $("#receiver").append(cursorHTML);
 };
 
 Template.chatroom.events({
@@ -90,8 +96,6 @@ Template.chatroom.created = function() {
       status = $("#status"),
       cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;"),
       receiverId;
-
-
 
   function blinkCursor() {
     var cursor = $(".cursor");
