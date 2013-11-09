@@ -1,3 +1,40 @@
+Template.chatroom.rendered = function () {
+  var self = this;
+
+  var currentChatroomId = Session.get('currentChatroomId');
+  var currentVapors = null;
+
+  //if ( $.cookie(currentChatroomId) ) {
+  if (document.cookie == "chatroom_id=" + currentChatroomId) {
+    alert("you already joined this!");
+  } else {
+    currentVapors = Vapors.find({chatroom_id: currentChatroomId});
+    var currentVaporCount = currentVapors.count();
+    
+    if (currentVaporCount == 0) {
+      var vapor = Vapors.insert({chatroom_id: currentChatroomId, message: ""});
+      document.cookie = "chatroom_id=" + currentChatroomId;
+    } else if (currentVaporCount == 1) {
+      var vapor = Vapors.insert({chatroom_id: currentChatroomId, message: ""});
+    } else {
+      alert("no new Vapor for you")
+    }
+  }
+
+
+
+  //if this user currently has a a cookied userid for this session
+    // do nothing
+  // if not
+      //if chatroom only has 0 people
+        //create a vapor
+      //else if chatroom has 1 people
+        //create a new vapor
+      //else
+        //reject user for now
+
+};
+
 Template.chatroom.helpers({
   status: function() {
 
@@ -7,10 +44,14 @@ Template.chatroom.helpers({
     }, function(error, data) {
     });
 
-    if(chatroom.people.length < 2) {
-      return "ALONE";
+    if(typeof chatroom === "undefined") {
+      return "LOADING...";
     } else {
-      return "HAZ FRiends!";
+      if(chatroom.people.length < 2) {
+        return "ALONE";
+      } else {
+        return "HAZ FRiends!";
+      }
     }
   },
 

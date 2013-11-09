@@ -8,10 +8,7 @@ Template.home.events({
     Session.set('currentPersonId', personId);
     var person = {id: personId, message: ""};
 
-    Chatrooms.update(chatroomId, { $push: { people: person }});
-
-    Session.set('currentChatroomId', permalink);
-    Deps.flush();
+    //Chatrooms.update(chatroomId, { $push: { people: person }});
 
     Meteor.Router.to("/room/" + permalink);
   }
