@@ -23,7 +23,12 @@ Template.chatroom.helpers({
   },
 
   roomName: function() {
-    return Session.get('roomName');
+    var chatRoom = Chatrooms.findOne({permalink: Session.get('currentChatroomId')});
+    if(chatRoom === undefined) {
+      return "";
+    } else {
+      return chatRoom.roomName;
+    }
   },
 
   link: function() {
