@@ -128,7 +128,7 @@ Template.chatroom.created = function() {
 
   Meteor.setInterval(blinkCursor, 500);
   Meteor.setInterval(updateHeartbeat, 10000);
-
+  
 };
 
 Template.chatroom.destroyed = function() {
