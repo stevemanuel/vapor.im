@@ -79,7 +79,7 @@ Template.chatroom.rendered = function () {
 Template.chatroom.preserve(["#sender"]);
 
 Template.chatroom.events({
-  'input, keypress input': function(e) {
+  '#chat, keypress #chat': function(e) {
     var currentChatroomId = Session.get('currentChatroomId');
     var newMessage = $(e.target).val();
     Vapors.update($.cookie(currentChatroomId), {$set: {message: newMessage}});
