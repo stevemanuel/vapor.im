@@ -1,14 +1,17 @@
 <template name="chatroom">
   <h1>{{roomName}}</h1>
   <h3>Share this link: https://www.vapor.im/room/{{link}}</h3>
+<div id="container">
   <div id="messages">
-    <div id="sender"><span class="cursor">|&nbsp;</span>your message...</div>
-    {{#if notAlone}}
-      <div id="receiver">{{receiverMessage}}</div>
+  	{{#if notAlone}}
+      <div id="receiver">{{receiverMessage}}<span class="cursor">|&nbsp;</span></div>
       {{else}}
-        <p>Waiting for recipient</p>
+        <div>Waiting for recipient</div>
     {{/if}}
+    <div id="sender"><span class="cursor">|&nbsp;</span></div>
+
   </div>
 
-  <input type="text" id="chat">
+  <input type="text" id="chat" style="opacity:0; filter:alpha(opacity=0);">
+ </div>
 </template>

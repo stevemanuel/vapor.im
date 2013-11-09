@@ -15,10 +15,13 @@ Template.chatroom.helpers({
     }
   },
   receiverMessage: function() {
+    console.log('receiverMessage called');
+
     var senderId = $.cookie(Session.get("currentChatroomId"));
     var theirMessage = Vapors.find({_id: { $ne: senderId}}).fetch()[0].message;
-    return theirMessage || "recipient's message...";
+    return theirMessage;
   },
+
   roomName: function() {
     return Session.get('roomName');
   },
@@ -52,7 +55,7 @@ Template.chatroom.rendered = function () {
       console.log("created vapor for previous user");
     }
   } else {
-    
+
     if (currentVaporCount == 0) {
       createVapor(currentChatroomId);
     } else if (currentVaporCount == 1) {
@@ -61,6 +64,13 @@ Template.chatroom.rendered = function () {
       alert("no new Vapor for you");
     }
   }
+
+  var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
+  $("#receiver span.cursor").remove();
+  $("#receiver").append(cursorHTML);
+
+  $("#sender").on('click', function(e) { $("#chat").focus() })
+  $("#chat").focus()
 };
 
 Template.chatroom.events({
@@ -74,7 +84,7 @@ Template.chatroom.events({
       $(e.target).val("");
       var message = $('#sender').clone();
       $("#messages").css("position", "relative").append(message);
-      message.css("position", "absolute").animate({
+      message.css("position", "relative").animate({
         'top': "-100px",
         'left': "0",
         'zoom': "200%",
@@ -98,8 +108,6 @@ Template.chatroom.created = function() {
       cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;"),
       receiverId;
 
-
-
   function blinkCursor() {
     var cursor = $(".cursor");
     cursor.toggleClass('blink');
@@ -120,6 +128,7 @@ Template.chatroom.created = function() {
 
   Meteor.setInterval(blinkCursor, 500);
   Meteor.setInterval(updateHeartbeat, 10000);
+
 };
 
 Template.chatroom.destroyed = function() {
