@@ -60,6 +60,9 @@ Template.chatroom.rendered = function () {
   var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
   $("#receiver span.cursor").remove();
   $("#receiver").append(cursorHTML);
+
+  $("#sender").on('click', function(e) { $("#chat").focus() })
+  $("#chat").focus()
 };
 
 Template.chatroom.events({
@@ -73,7 +76,7 @@ Template.chatroom.events({
       $(e.target).val("");
       var message = $('#sender').clone();
       $("#messages").css("position", "relative").append(message);
-      message.css("position", "absolute").animate({
+      message.css("position", "relative").animate({
         'top': "-100px",
         'left': "0",
         'zoom': "200%",
@@ -117,6 +120,7 @@ Template.chatroom.created = function() {
 
   Meteor.setInterval(blinkCursor, 500);
   Meteor.setInterval(updateHeartbeat, 10000);
+
 };
 
 Template.chatroom.destroyed = function() {

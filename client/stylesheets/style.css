@@ -1,11 +1,34 @@
 body {
   font-family: "Helvetica";
+
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  background-image: -webkit-gradient(
+    linear,
+    right bottom,
+    left bottom,
+    color-stop(0.43, #C928BE),
+    color-stop(1, #FF8927)
+  );
+  background-image: -o-linear-gradient(left, #C928BE 43%, #FF8927 100%);
+  background-image: -moz-linear-gradient(left, #C928BE 43%, #FF8927 100%);
+  background-image: -webkit-linear-gradient(left, #C928BE 43%, #FF8927 100%);
+  background-image: -ms-linear-gradient(left, #C928BE 43%, #FF8927 100%);
+  background-image: linear-gradient(to left, #C928BE 43%, #FF8927 100%);
+  
+  max-width: 480px;
+  margin: 0 auto;
+  height: 1024px;
 }
 
 #sender {
   padding: 10px;
   color: #f9e1e1;
   font-size: 24px;
+  text-align: right;
 }
 
 .darkenSender {
