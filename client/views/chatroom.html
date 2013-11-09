@@ -2,7 +2,7 @@
   <div id="messages">
     <div id="sender"><span class="cursor">|&nbsp;</span>your message...</div>
     {{#if notAlone}}
-      <div id="receiver"><span class="cursor">|&nbsp;</span>recipient's message...</div>
+      <div id="receiver">{{receiverMessage}}</div>
       {{else}}
         <p>Waiting for recipient</p>
     {{/if}}

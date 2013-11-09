@@ -14,8 +14,10 @@ Template.chatroom.helpers({
       }
     }
   },
-  senderMessage: function() {
-    
+  receiverMessage: function() {
+    var senderId = $.cookie(Session.get("currentChatroomId"));
+    var theirMessage = Vapors.find({_id: { $ne: senderId}}).fetch().message;
+    return theirMessage || "recipient's message...";
   }
 });
 
@@ -58,8 +60,10 @@ Template.chatroom.events({
   'input, keypress input': function(e) {
     var currentChatroomId = Session.get('currentChatroomId');
     var newMessage = $(e.target).val();
-    Vapors.update($.cookie(currentChatroomId), {message: newMessage});
+    Vapors.update($.cookie(currentChatroomId), {$set: {message: newMessage}});
+    console.log(Vapors.findOne($.cookie(currentChatroomId)).message);
     if (e.keyCode === 13) {
+      Vapors.update($.cookie(currentChatroomId), {$set: {message: ""}});
       $(e.target).val("");
       var message = $('#sender').clone();
       $("#messages").css("position", "relative").append(message);
@@ -84,7 +88,10 @@ Template.chatroom.created = function() {
       sender = $("#sender"),
       receiver = $('<div id="receiver"><span class="cursor">|&nbsp;</span>participant\'s message...</div>'),
       status = $("#status"),
-      cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
+      cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;"),
+      receiverId;
+
+
 
   function blinkCursor() {
     var cursor = $(".cursor");
