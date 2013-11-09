@@ -30,7 +30,11 @@ Template.chatroom.rendered = function () {
   var currentVaporCount = currentVapors.count();
 
   if ( $.cookie(currentChatroomId) ) {
-    alert(currentVaporCount.toString() + " people");
+
+    var yourVaporId = $.cookie(currentChatroomId);
+    var yourVapor = Vapors.findOne(yourVaporId);
+    yourVapor.message;
+
   } else {
     
     if (currentVaporCount == 0) {
