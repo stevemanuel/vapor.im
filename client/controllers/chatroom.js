@@ -19,6 +19,11 @@ Template.chatroom.helpers({
   }
 });
 
+var createVapor = function(chatroomId) {
+  var vapor = Vapors.insert({chatroom_id: chatroomId, message: "", last_heartbeat: new Date().getTime()});
+  $.cookie(chatroomId, vapor);
+};
+
 Template.chatroom.rendered = function () {
   var self = this;
 
@@ -30,14 +35,19 @@ Template.chatroom.rendered = function () {
 
   if ( $.cookie(currentChatroomId) ) {
     // there are other people in the room.
+    var myVaporId =  $.cookie(currentChatroomId);
+    var myVapor = Vapors.findOne(myVaporId);
+
+    if (typeof myVapor === "undefined") {
+      createVapor(currentChatroomId);
+      console.log("created vapor for previous user");
+    }
   } else {
     
     if (currentVaporCount == 0) {
-      var vapor = Vapors.insert({chatroom_id: currentChatroomId, message: ""});
-      document.cookie = $.cookie(currentChatroomId, vapor);
+      createVapor(currentChatroomId);
     } else if (currentVaporCount == 1) {
-      var vapor = Vapors.insert({chatroom_id: currentChatroomId, message: ""});
-      document.cookie = $.cookie(currentChatroomId, vapor);
+      createVapor(currentChatroomId);
     } else {
       alert("no new Vapor for you");
     }
@@ -81,5 +91,27 @@ Template.chatroom.created = function() {
     cursor.toggleClass('blink');
   }
 
-  setInterval(blinkCursor, 500);
-}
+  function updateHeartbeat() {
+    var currentChatroomId = Session.get('currentChatroomId');
+    var now = new Date().getTime();
+    Vapors.update($.cookie(currentChatroomId), {$set: {last_heartbeat: now}});
+
+    Vapors.find({chatroom_id: currentChatroomId}).forEach(function(v) {
+      if(v.last_heartbeat < (now - 11000)) {
+        console.log("going to remove " + v._id)
+        Vapors.remove(v._id);
+      }
+    });
+  }
+
+  Meteor.setInterval(blinkCursor, 500);
+  Meteor.setInterval(updateHeartbeat, 10000);
+};
+
+Template.chatroom.destroyed = function() {
+
+
+};
+
+
+
