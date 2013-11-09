@@ -1,27 +1,48 @@
+Template.chatroom.helpers({
+  status: function() {
+
+    var currentVapors = Vapors.find({chatroom_id: Session.get('currentChatroomId')});
+    var currentVaporCount = currentVapors.count();
+
+    if(typeof currentVaporCount === 0) {
+      return "LOADING...";
+    } else {
+      if(currentVaporCount < 2) {
+        return "ALONE";
+      } else {
+        return "HAZ FRiends!";
+      }
+    }
+  },
+
+  senderMessage: function() {
+    
+  }
+});
+
 Template.chatroom.rendered = function () {
   var self = this;
 
   var currentChatroomId = Session.get('currentChatroomId');
   var currentVapors = null;
 
-  //if ( $.cookie(currentChatroomId) ) {
-  if (document.cookie == "chatroom_id=" + currentChatroomId) {
-    alert("you already joined this!");
+  currentVapors = Vapors.find({chatroom_id: currentChatroomId});
+  var currentVaporCount = currentVapors.count();
+
+  if ( $.cookie(currentChatroomId) ) {
+    alert(currentVaporCount.toString() + " people");
   } else {
-    currentVapors = Vapors.find({chatroom_id: currentChatroomId});
-    var currentVaporCount = currentVapors.count();
     
     if (currentVaporCount == 0) {
       var vapor = Vapors.insert({chatroom_id: currentChatroomId, message: ""});
-      document.cookie = "chatroom_id=" + currentChatroomId;
+      document.cookie = $.cookie(currentChatroomId, vapor);
     } else if (currentVaporCount == 1) {
       var vapor = Vapors.insert({chatroom_id: currentChatroomId, message: ""});
+      document.cookie = $.cookie(currentChatroomId, vapor);
     } else {
       alert("no new Vapor for you")
     }
   }
-
-
 
   //if this user currently has a a cookied userid for this session
     // do nothing
@@ -34,31 +55,6 @@ Template.chatroom.rendered = function () {
         //reject user for now
 
 };
-
-Template.chatroom.helpers({
-  status: function() {
-
-    var chatroom = Chatrooms.findOne({
-      permalink: Session.get('currentChatroomId')
-
-    }, function(error, data) {
-    });
-
-    if(typeof chatroom === "undefined") {
-      return "LOADING...";
-    } else {
-      if(chatroom.people.length < 2) {
-        return "ALONE";
-      } else {
-        return "HAZ FRiends!";
-      }
-    }
-  },
-
-  senderMessage: function() {
-    
-  }
-});
 
 Template.chatroom.events({
   'input, keypress input': function(e) {
