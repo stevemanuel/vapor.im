@@ -20,8 +20,13 @@ Template.chatroom.helpers({
 });
 
 Template.chatroom.events({
-  'keydown input': function() {
+  'keyup input': function(e) {
+    if (e.keyCode === 13) {
+      $(e.target).val("").trigger("keyup");
 
+    }
+    var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
+    $("#sender").html($(e.target).val()).append(cursorHTML);
   }
 });
 
