@@ -20,6 +20,14 @@ Template.chatroom.helpers({
     var senderId = $.cookie(Session.get("currentChatroomId"));
     var theirMessage = Vapors.find({_id: { $ne: senderId}}).fetch()[0].message;
     return theirMessage;
+  },
+
+  roomName: function() {
+    return Session.get('roomName');
+  },
+
+  link: function() {
+    return Session.get('currentChatroomId');
   }
 });
 
@@ -47,7 +55,7 @@ Template.chatroom.rendered = function () {
       console.log("created vapor for previous user");
     }
   } else {
-    
+
     if (currentVaporCount == 0) {
       createVapor(currentChatroomId);
     } else if (currentVaporCount == 1) {
