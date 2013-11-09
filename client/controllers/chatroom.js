@@ -1,5 +1,5 @@
 Template.chatroom.helpers({
-  status: function() {
+  notAlone: function() {
 
     var currentVapors = Vapors.find({chatroom_id: Session.get('currentChatroomId')});
     var currentVaporCount = currentVapors.count();
@@ -8,13 +8,12 @@ Template.chatroom.helpers({
       return "LOADING...";
     } else {
       if(currentVaporCount < 2) {
-        return "ALONE";
+        return false;
       } else {
-        return "HAZ FRiends!";
+        return true;
       }
     }
   },
-
   senderMessage: function() {
     
   }
@@ -30,11 +29,7 @@ Template.chatroom.rendered = function () {
   var currentVaporCount = currentVapors.count();
 
   if ( $.cookie(currentChatroomId) ) {
-
-    var yourVaporId = $.cookie(currentChatroomId);
-    var yourVapor = Vapors.findOne(yourVaporId);
-    yourVapor.message;
-
+    // there are other people in the room.
   } else {
     
     if (currentVaporCount == 0) {
@@ -44,24 +39,16 @@ Template.chatroom.rendered = function () {
       var vapor = Vapors.insert({chatroom_id: currentChatroomId, message: ""});
       document.cookie = $.cookie(currentChatroomId, vapor);
     } else {
-      alert("no new Vapor for you")
+      alert("no new Vapor for you");
     }
   }
-
-  //if this user currently has a a cookied userid for this session
-    // do nothing
-  // if not
-      //if chatroom only has 0 people
-        //create a vapor
-      //else if chatroom has 1 people
-        //create a new vapor
-      //else
-        //reject user for now
-
 };
 
 Template.chatroom.events({
   'input, keypress input': function(e) {
+    var currentChatroomId = Session.get('currentChatroomId');
+    var newMessage = $(e.target).val();
+    Vapors.update($.cookie(currentChatroomId), {message: newMessage});
     if (e.keyCode === 13) {
       $(e.target).val("");
       var message = $('#sender').clone();

@@ -3,5 +3,5 @@ Deps.autorun(function() {
     Meteor.subscribe('chatrooms', Session.get('currentChatroomId'));
   }
 
-  Meteor.subscribe('vapors');
+  Meteor.subscribe('vapors', Session.get('currentChatroomId'));
 });

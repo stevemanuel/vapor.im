@@ -1,7 +1,11 @@
 <template name="chatroom">
-  <p id="status">{{status}}</p>
   <div id="messages">
     <div id="sender"><span class="cursor">|&nbsp;</span>your message...</div>
+    {{#if notAlone}}
+      <div id="receiver"><span class="cursor">|&nbsp;</span>recipient's message...</div>
+      {{else}}
+        <p>Waiting for recipient</p>
+    {{/if}}
   </div>
 
   <input type="text" id="chat">
