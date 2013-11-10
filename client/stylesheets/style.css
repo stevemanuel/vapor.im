@@ -6,7 +6,7 @@ body {
   padding: 0;
 }
 
-#container {
+#container, #home {
   background-image: -webkit-gradient(
     linear,
     right bottom,
@@ -23,6 +23,71 @@ body {
   max-width: 480px;
   margin: 0 auto;
   height: 1024px;
+  position: relative;
+}
+
+#logo {
+  width: 95%;
+  display: block;
+  margin: auto;
+}
+
+#home input {
+  transition: all 0.3s ease;
+  width: 85%;
+  font-size: 20px;
+  outline: none;
+  -webkit-appearance: none;
+  border: none;
+  margin: 20px auto;
+  display: block;
+  padding: 10px;
+  box-shadow: inset 0 0 2px #fff;
+  color: #FFF;
+  text-align: center;
+  background: #F0C4ED;
+  background: rgba(255,255,255,0.7);
+  text-transform: lowercase;
+}
+
+#home input:focus {
+  transition: all 0.3s ease;
+  width: 90%;
+  background: rgba(255,255,255,0.5);
+}
+
+#home label {
+  margin: 0 0 0 15px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: lowercase;
+  font-size: 20px;
+}
+
+#home button {
+  width: 90%;
+  font-size: 20px;
+  outline: none;
+  -webkit-appearance: none;
+  border: none;
+  margin: 20px auto;
+  display: block;
+  padding: 10px;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: inset 0 0 25px #EFBEE9, inset 0 0 40px #FFF, inset 0 0 70px #FBC9B4;
+  color: #fff;
+  cursor: pointer;
+  text-transform: lowercase;
+}
+
+.roomName {
+  text-align: center;
+  padding: 22px 0;
+  font-weight: bold;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 50px #ddd;
 }
 
 #sender {
