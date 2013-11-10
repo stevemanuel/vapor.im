@@ -164,15 +164,11 @@ Template.chatroom.created = function() {
 
   Meteor.setInterval(blinkCursor, 500);
   Meteor.setInterval(updateHeartbeat, 10000);
-// <<<<<<< HEAD
-  
-// =======
 
 //   var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
 //   $("#receiver span.cursor").remove();
 //   $("#receiver").append(cursorHTML);
 
-// >>>>>>> 05716680ebca848a0b6f628b3a45a4528446f208
 };
 
 Template.chatroom.destroyed = function() {
