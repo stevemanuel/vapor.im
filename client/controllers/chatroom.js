@@ -78,8 +78,10 @@ Template.chatroom.rendered = function () {
     }
   }
 
-  $(".sender").one('click', function(e) { $("#chat").focus() });
+  $(".sender").one('click', function(e) { $("#chat").focus(); });
+  $("#container").one('click', function(e) { $("#chat").focus(); });
   $("#chat").focus();
+
 };
 
 Template.chatroom.preserve([".sender"]);
