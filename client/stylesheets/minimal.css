@@ -1,0 +1,58 @@
+body > .minimal {
+  background: #f6f6f6 !important;
+}
+
+.minimal #container, #home {
+  background: #e1e1e1;
+  max-width: 480px;
+  margin: 0 auto;
+  height: 1024px;
+  position: relative;
+  overflow: hidden;
+}
+
+.minimal #container:before {
+  content: "";
+  background-image: none;
+  height: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right:0;
+}
+
+
+.minimal .roomName {
+  text-align: center;
+  padding: 22px 0;
+  font-weight: bold;
+  font-size: 35px;
+  color: #bbb;
+}
+
+.minimal .sender {
+  padding: 10px;
+  color: #0000FF;
+  font-size: 24px;
+  text-align: right;
+}
+
+.minimal .receiver {
+  padding: 10px;
+  color: #A6E22D;
+  font-size: 24px;
+}
+
+.minimal .cursor {
+  -webkit-transition: all .1s ease;
+  -moz-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  -ms-transition: all .1s ease;
+  transition: all .1s ease;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+
+  font-size: 30px;
+  font-weight: lighter;
+}

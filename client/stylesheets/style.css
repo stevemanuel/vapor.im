@@ -6,7 +6,7 @@ body {
   padding: 0;
 }
 
-#container, #home {
+.default #container, #home {
   background: #C928BE;
   background-image: -webkit-gradient(
     linear,
@@ -28,6 +28,16 @@ body {
   overflow: hidden;
 }
 
+.minimal #container:before {
+  content: "";
+  background-image: none;
+  height: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right:0;
+}
+
 #logo {
   width: 95%;
   display: block;
@@ -35,14 +45,40 @@ body {
 }
 
 #newchat {
-  position: fixed;
-  bottom: 15%;
-  right: 10%;
-  width: 25%;
-  max-width: 120px;
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  width: 45px;
 }
 
 #newchat img {
+  width: 100%;
+}
+
+#settings {
+  position: absolute;
+  top: 10px;
+  right: 120px;
+  width: 30px;
+}
+
+#themes {
+  position: absolute;
+  top: -135%;
+  right: 110px;
+  background: rgba(255, 255, 255, 0.6);
+  color: #333;
+}
+
+.theme {
+  margin: auto;
+  padding: 15px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+#settings img {
   width: 100%;
 }
 
@@ -101,39 +137,28 @@ body {
   text-transform: lowercase;
 }
 
-.roomName {
+.default  .roomName {
   text-align: center;
   padding: 22px 0;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 35px;
   color: rgba(255, 255, 255, 0.4);
-  text-shadow: 0 0 50px #ddd;
 }
 
-.sender {
+.default .sender {
   padding: 10px;
   color: #f9e1e1;
   font-size: 24px;
   text-align: right;
-  border-bottom: solid rgba(255,255,255,0.3) 1px;
 }
 
-.darkenSender {
-  color: red !important;
-}
-
-.darkenReceiver {
-  color: black;
-}
-
-.receiver {
+.default .receiver {
   padding: 10px;
   color: #d6d6d6;
   font-size: 24px;
-  border-bottom: solid rgba(255,255,255,0.3) 1px;
 }
 
-.cursor {
+.default .cursor {
   -webkit-transition: all .1s ease;
   -moz-transition: all .1s ease;
   -o-transition: all .1s ease;
@@ -160,3 +185,43 @@ body {
   font-size: 18px;
   font-style: italic;
 }
+
+.closeLink {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+
+  padding: 5px 6px;
+  color: #ccc;
+  border: solid 1px #ddd;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+
+.openLink {
+  padding: 3px 5px;
+  padding-bottom: 10px;
+  color: #ccc;
+  border: solid 1px #ddd;
+  position: absolute;
+  cursor: pointer;
+  position: fixed;
+  bottom: 0px;
+  right: 15px;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 0;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.instructions {
+  font-size: 12px;
+}
+
+@import office.css;
+@import minimal.css;
