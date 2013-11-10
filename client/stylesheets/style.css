@@ -141,3 +141,8 @@ body {
   transition: all .1s ease;
   opacity: 0;
 }
+
+#pending-recipient {
+  font-size: 18px;
+  font-style: italic;
+}
