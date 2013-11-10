@@ -1,0 +1,18 @@
+{
+  "name": "vapor.im",
+  "subdomain":"vapor-im",
+  "domains": [
+    "vapor.im",
+    "www.vapor.im"
+  ],
+  "version": "0.1.9-3",
+  "dependencies": {
+    "fibers": "1.0.0"
+  },
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

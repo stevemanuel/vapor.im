@@ -32,14 +32,14 @@ body > .office {
 
 .office .sender {
   padding: 10px;
-  color: #f9e1e1;
+  color: #C97B7B;
   font-size: 24px;
   text-align: right;
 }
 
 .office .receiver {
   padding: 10px;
-  color: #d6d6d6;
+  color: #868585;
   font-size: 24px;
 }
 
