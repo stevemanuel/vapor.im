@@ -34,6 +34,17 @@ body {
   margin: auto;
 }
 
+#newchat {
+  position: fixed;
+  bottom: 10%;
+  right: 10%;
+  width: 25%;
+}
+
+#newchat img {
+  width: 100%;
+}
+
 #home input {
   transition: all 0.3s ease;
   width: 85%;
