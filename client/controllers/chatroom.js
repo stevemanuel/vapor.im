@@ -27,6 +27,7 @@ Template.chatroom.helpers({
     if(chatRoom === undefined) {
       return "";
     } else {
+      document.title += " - "+chatRoom.roomName;
       return chatRoom.roomName;
     }
   },
@@ -60,12 +61,12 @@ Template.chatroom.rendered = function () {
     var myVaporId =  $.cookie(currentChatroomId);
     var myVapor = Vapors.findOne(myVaporId);
 
-    /*
+    
     if (typeof myVapor === "undefined") {
       createVapor(currentChatroomId);
       console.log("created vapor for previous user");
     }
-    */
+    
   } else {
 
     if (currentVaporCount == 0) {
@@ -84,12 +85,14 @@ Template.chatroom.rendered = function () {
 Template.chatroom.preserve(["#sender"]);
 
 Template.chatroom.events({
-  '#chat, keypress #chat': function(e) {
+
+  // input in the event listens better on desktop for events in <input>
+  'input, keypress #chat': function(e) {
     var currentChatroomId = Session.get('currentChatroomId');
     var newMessage = $(e.target).val();
     Vapors.update($.cookie(currentChatroomId), {$set: {message: newMessage}});
     console.log(Vapors.findOne($.cookie(currentChatroomId)).message);
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && newMessage !== "") {
       Vapors.update($.cookie(currentChatroomId), {$set: {message: ""}});
       $(e.target).val("");
       var message = $('#sender').clone();
