@@ -69,18 +69,20 @@ Template.chatroom.rendered = function () {
   } else {
     if (currentVaporCount == 0) {
       createVapor(currentChatroomId);
+      console.log("created vapor for first user");
     } else if (currentVaporCount == 1) {
       createVapor(currentChatroomId);
+      console.log("created vapor for second user");
     } else {
       alert("no new Vapor for you");
     }
   }
 
-  $("#sender").one('click', function(e) { $("#chat").focus() });
+  $(".sender").one('click', function(e) { $("#chat").focus() });
   $("#chat").focus();
 };
 
-Template.chatroom.preserve(["#sender"]);
+Template.chatroom.preserve([".sender"]);
 
 Template.chatroom.events({
   // input in the event listens better on desktop for events in <input>
@@ -94,7 +96,7 @@ Template.chatroom.events({
 
       $(e.target).val("");
       
-      var message = $('#sender').clone();
+      var message = $('.sender').clone();
       $("#messages").css("position", "relative").append(message);
       
       message.css("position", "relative").animate({
@@ -110,7 +112,7 @@ Template.chatroom.events({
 
     console.log("keypress sender");
     var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
-    $("#sender").html($(e.target).val()).append(cursorHTML);
+    $(".sender").html($(e.target).val()).append(cursorHTML);
   }
 });
 
@@ -135,7 +137,7 @@ Template.chatroom.created = function() {
 
   var chat = $("#chat"),
       messages = $("#messages"),
-      sender = $("#sender"),
+      sender = $(".sender"),
       status = $("#status"),
       cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;"),
       receiverId;
