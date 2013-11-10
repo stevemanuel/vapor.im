@@ -39,6 +39,7 @@ body {
   bottom: 10%;
   right: 10%;
   width: 25%;
+  max-width: 120px;
 }
 
 #newchat img {
