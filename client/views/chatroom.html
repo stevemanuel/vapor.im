@@ -6,7 +6,7 @@
   {{#if roomName}}
     {{roomName}}
   {{else}}
-    Vapor.IM
+    VaporChat
   {{/if}}
   </div>
   <div id="messages">
@@ -29,18 +29,32 @@
   <input type="text" id="chat" style="opacity:0; filter:alpha(opacity=0); color: transparent; position: absolute; left: -999999px;">
  </div>
 
- <a id="newchat" href="/">
-   <img src="/img/icon-newchat.png" alt="">
- </a>
-
- <div style="position:fixed; bottom: 0px; width: 100%; background-color: white; opacity: 0.6;">
+  {{#if linkIsOpen}}
+ <div class="vapor-link" style="position:fixed; bottom: 0px; width: 100%; background-color: white; opacity: 0.6;">
  	<div style="margin: 0 auto; max-width: 440px">
  		<div style="margin: 20px 0;">
-      Your VaporLink:
+      <p class="instructions">share this with someone and start chatting:</p>
  			<input type="text" name="country" value="https://www.vapor.im/room/{{link}}" style="font-size: 16px; font-style:'Helvetica' font-weight: lighter; margin: 0; padding: 5px; width: 400px;"  readonly/>
  		</div>
+    <div class="closeLink">^</div>
+    <a id="newchat" href="/" target="_blank">
+      <img src="/img/icon-newchat.png"  alt="">
+    </a>
+    <a href="#" id="settings">
+      <img src="/img/settings.png" alt="">
+    </a>
+    {{#if settingsIsShown}}
+      <div id="themes">
+        <div class="theme" data-theme="default">{{#if check "default"}}✓ {{/if}}Default</div>
+        <div class="theme" data-theme="office">{{#if check "office"}}✓ {{/if}}Office</div>
+        <div class="theme" data-theme="minimal">{{#if check "minimal"}}✓ {{/if}}Minimal</div>
+      </div>
+    {{/if}}
  	</div>
  </div>
+  {{else}}
+    <div class="openLink">^</div>
+ {{/if}} <!-- linkIsOpen -->
  {{else}}
   <p>Loading...</p>
  {{/if}}

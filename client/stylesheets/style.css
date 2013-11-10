@@ -64,9 +64,8 @@ body {
 
 #themes {
   position: absolute;
-  top: -135%;
+  top: -145%;
   right: 110px;
-  background: rgba(255, 255, 255, 0.6);
   color: #333;
 }
 
@@ -75,6 +74,7 @@ body {
   padding: 15px;
   width: 100%;
   text-align: center;
+  background: rgba(255, 255, 255, 0.6);
   cursor: pointer;
 }
 

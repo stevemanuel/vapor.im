@@ -41,6 +41,14 @@ Template.chatroom.helpers({
 
   vaporsReady: function() {
     return Session.equals("vaporsReady", true);
+  },
+
+  linkIsOpen: function() {
+    return Session.equals("linkIsOpen", true);
+  },
+
+  settingsIsShown: function() {
+    return Session.equals("settingsIsShown", true);
   }
 });
 
@@ -121,6 +129,28 @@ Template.chatroom.events({
     console.log("keypress sender");
     var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
     $(".sender").html($(e.target).val()).append(cursorHTML);
+  },
+  'click .closeLink': function() {
+    Session.set("linkIsOpen", false);
+  },
+  'click .openLink': function() {
+    Session.set("linkIsOpen", true);
+  },
+
+  'click #settings': function(e) {
+    e.preventDefault();
+    var shown = Session.get("settingsIsShown");
+    Session.set("settingsIsShown", !shown);
+  },
+
+  'click .theme': function(e) {
+    var theme = $(e.target).data("theme");
+    if (Session.equals("masterTheme", theme)) {
+      return;
+    }
+    else {
+      Session.set("masterTheme", theme);
+    }
   }
 });
 
