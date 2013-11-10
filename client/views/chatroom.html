@@ -1,4 +1,6 @@
 <template name="chatroom">
+
+{{#if vaporsReady}}
 <div id="container">
   <div class="roomName">
     {{roomName}}
@@ -34,4 +36,7 @@
  		</div>
  	</div>
  </div>
+ {{else}}
+  <p>Loading...</p>
+ {{/if}}
 </template>

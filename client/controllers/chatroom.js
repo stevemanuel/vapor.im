@@ -37,6 +37,10 @@ Template.chatroom.helpers({
 
   senderMessage: function() {
     return $("#chat").val();
+  },
+
+  vaporsReady: function() {
+    return Session.equals("vaporsReady", true);
   }
 });
 
@@ -47,40 +51,42 @@ var createVapor = function(chatroomId) {
 };
 
 Template.chatroom.rendered = function () {
-  console.log("rendered called");
-  var self = this;
+  if (Session.equals("vaporsReady", true)) {
+    console.log("rendered called");
+    var self = this;
 
-  var currentChatroomId = Session.get('currentChatroomId');
-  var currentVapors = null;
+    var currentChatroomId = Session.get('currentChatroomId');
+    var currentVapors = null;
 
-  currentVapors = Vapors.find({chatroom_id: currentChatroomId});
-  var currentVaporCount = currentVapors.count();
+    currentVapors = Vapors.find({chatroom_id: currentChatroomId});
+    var currentVaporCount = currentVapors.count();
 
-  if ( $.cookie(currentChatroomId) ) {
-    // there are other people in the room.
-    var myVaporId =  $.cookie(currentChatroomId);
-    var myVapor = Vapors.findOne(myVaporId);
+    if ( $.cookie(currentChatroomId) ) {
+      // there are other people in the room.
+      var myVaporId =  $.cookie(currentChatroomId);
+      var myVapor = Vapors.findOne(myVaporId);
 
-    if (typeof myVapor === "undefined") {
-      createVapor(currentChatroomId);
-      console.log("created vapor for previous user");
-    }
-    
-  } else {
-    if (currentVaporCount == 0) {
-      createVapor(currentChatroomId);
-      console.log("created vapor for first user");
-    } else if (currentVaporCount == 1) {
-      createVapor(currentChatroomId);
-      console.log("created vapor for second user");
+      if (typeof myVapor === "undefined") {
+        createVapor(currentChatroomId);
+        console.log("created vapor for previous user");
+      }
+      
     } else {
-      alert("no new Vapor for you");
+      if (currentVaporCount == 0) {
+        createVapor(currentChatroomId);
+        console.log("created vapor for first user");
+      } else if (currentVaporCount == 1) {
+        createVapor(currentChatroomId);
+        console.log("created vapor for second user");
+      } else {
+        alert("no new Vapor for you");
+      }
     }
-  }
 
-  $(".sender").one('click', function(e) { $("#chat").focus(); });
-  $("body").one('click', function(e) { $("#chat").focus(); });
-  $("#chat").focus();
+    $(".sender").one('click', function(e) { $("#chat").focus(); });
+    $("body").one('click', function(e) { $("#chat").focus(); });
+    $("#chat").focus();
+  }
 
 };
 
