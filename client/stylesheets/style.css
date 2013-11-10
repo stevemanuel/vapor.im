@@ -1,12 +1,13 @@
 body {
   font-family: "Helvetica";
   font-weight: lighter;
-
+  background: black;
   margin: 0;
   padding: 0;
 }
 
 #container, #home {
+  background: #C928BE;
   background-image: -webkit-gradient(
     linear,
     right bottom,
@@ -24,6 +25,7 @@ body {
   margin: 0 auto;
   height: 1024px;
   position: relative;
+  overflow: hidden;
 }
 
 #logo {
