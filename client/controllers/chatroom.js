@@ -141,10 +141,12 @@ Template.chatroom.events({
         }, 500, function() {
           message.remove();
         });
+
+        return;
       }
     }
-
-    console.log("keypress sender");
+    
+    //append cursor
     var cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;");
     $(".sender").html($(e.target).val()).append(cursorHTML);
   },
