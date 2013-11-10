@@ -105,25 +105,43 @@ Template.chatroom.events({
   'input, keypress #chat': function(e) {
     var currentChatroomId = Session.get('currentChatroomId');
     var newMessage = $(e.target).val();
-    Vapors.update($.cookie(currentChatroomId), {$set: {message: newMessage}});
-    console.log(Vapors.findOne($.cookie(currentChatroomId)).message);
-    if (e.keyCode === 13 && newMessage !== "") {
-      Vapors.update($.cookie(currentChatroomId), {$set: {message: "", last_message: new Date().getTime()}});
+    var vaporId = $.cookie(currentChatroomId);
 
-      $(e.target).val("");
-      
-      var message = $('.sender').clone();
-      $("#messages").css("position", "relative").append(message);
-      
-      message.css("position", "relative").animate({
-        'top': "-100px",
-        'left': "0",
-        'zoom': "200%",
-        'opacity': "0"
-      }, 500, function() {
-        message.remove();
-      });
-    
+    if (typeof e.keyCode === "undefined") {
+      //this is a paste, it might be a url
+      var inputVal = $(e.target).val();
+      if(inputVal.length > 0) {
+
+        if (inputVal.match(/^(http|https)\:(\S+)\.(gif|jpg|jpeg|png)$$/i) != null) {
+          console.log("going to inject image");
+          var imageHTML = "<img style='max-width: 300px;' src='" + inputVal + "'/>"
+          $(".sender").html(imageHTML);
+          $(e.target).val(imageHTML);
+          Vapors.update(vaporId, {$set: {message: imageHTML}});
+
+          return;
+        }
+      }
+    } else {
+      Vapors.update(vaporId, {$set: {message: newMessage}});
+
+      if (e.keyCode === 13 && newMessage !== "") {
+        Vapors.update(vaporId, {$set: {message: "", last_message: new Date().getTime()}});
+
+        $(e.target).val("");
+        
+        var message = $('.sender').clone();
+        $("#messages").css("position", "relative").append(message);
+        
+        message.css("position", "relative").animate({
+          'top': "-100px",
+          'left': "0",
+          'zoom': "200%",
+          'opacity': "0"
+        }, 500, function() {
+          message.remove();
+        });
+      }
     }
 
     console.log("keypress sender");
