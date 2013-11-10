@@ -1,7 +1,11 @@
 <template name="chatroom">
 <div id="container">
   <div class="roomName">
+  {{#if roomName}}
     {{roomName}}
+  {{else}}
+    Vapor.im
+  {{/if}}
   </div>
   <div id="messages">
   	{{#if notAlone}}
@@ -12,7 +16,7 @@
 		    	{{#if vaporIs "sender"}}
 		    		<div id="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
 		    	{{/if}}
-		    {{/if}}	    
+		    {{/if}}
 		{{/each}}
     {{else}}
         <div>Waiting for participant to join...</div>
