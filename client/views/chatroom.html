@@ -11,10 +11,10 @@
   	{{#if notAlone}}
       	{{#each currentVapors}}
 	      	{{#if vaporIs "receiver"}}
-		     	<div id="receiver">{{receiverMessage}}<span class="cursor">|&nbsp;</span></div>
+		     	<div class="receiver">{{receiverMessage}}<span class="cursor">|&nbsp;</span></div>
 		    {{else}}
 		    	{{#if vaporIs "sender"}}
-		    		<div id="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
+		    	<div class="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
 		    	{{/if}}
 		    {{/if}}
 		{{/each}}
@@ -24,8 +24,12 @@
     {{/if}}
   </div>
 
-  <input type="text" id="chat" style="opacity:0; filter:alpha(opacity=0);">
+  <input type="text" id="chat" style="opacity:0; filter:alpha(opacity=0); color: transparent; position: absolute; left: -999999px;">
  </div>
+
+ <a id="newchat" href="/">
+   <img src="/img/icon-newchat.png" alt="">
+ </a>
 
  <div style="position:fixed; bottom: 0px; width: 100%; background-color: white; opacity: 0.6;">
  	<div style="margin: 0 auto; max-width: 440px">

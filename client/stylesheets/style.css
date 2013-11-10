@@ -34,6 +34,18 @@ body {
   margin: auto;
 }
 
+#newchat {
+  position: fixed;
+  bottom: 15%;
+  right: 10%;
+  width: 25%;
+  max-width: 120px;
+}
+
+#newchat img {
+  width: 100%;
+}
+
 #home input {
   transition: all 0.3s ease;
   width: 85%;
@@ -98,7 +110,7 @@ body {
   text-shadow: 0 0 50px #ddd;
 }
 
-#sender {
+.sender {
   padding: 10px;
   color: #f9e1e1;
   font-size: 24px;
@@ -114,7 +126,7 @@ body {
   color: black;
 }
 
-#receiver {
+.receiver {
   padding: 10px;
   color: #d6d6d6;
   font-size: 24px;
