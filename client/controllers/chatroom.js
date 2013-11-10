@@ -18,6 +18,22 @@ Template.chatroom.helpers({
 
     var senderId = $.cookie(Session.get("currentChatroomId"));
     var theirMessage = Vapors.find({_id: { $ne: senderId}}).fetch()[0].message;
+    
+    if( Session.get("lastKnownMessage") && Session.get("lastKnownMessage").length > 0 && theirMessage == "") {
+      var receiver = $('.receiver').clone();
+      $("#messages").css("position", "relative").append(receiver);
+      
+      receiver.css("position", "relative").animate({
+        'top': "-100px",
+        'left': "0",
+        'zoom': "200%",
+        'opacity': "0"
+      }, 500, function() {
+        receiver.remove();
+      });
+    }
+    Session.set("lastKnownMessage", theirMessage);
+    
     return theirMessage;
   },
 
