@@ -7,27 +7,28 @@
   	{{#if notAlone}}
       	{{#each currentVapors}}
 	      	{{#if vaporIs "receiver"}}
-		     	<div id="receiver">{{receiverMessage}}<span class="cursor">|&nbsp;</span></div>
+		     	<div class="receiver">{{receiverMessage}}<span class="cursor">|&nbsp;</span></div>
 		    {{else}}
 		    	{{#if vaporIs "sender"}}
-		    		<div id="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
+		    	<div class="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
 		    	{{/if}}
 		    {{/if}}	    
 		{{/each}}
     {{else}}
         <div>Waiting for participant to join...</div>
-        <div id="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
+        <div class="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
     {{/if}}
   </div>
 
-  <input type="text" id="chat" style="opacity:0; filter:alpha(opacity=0);">
+  <input type="text" id="chat" style="opacity:0; filter:alpha(opacity=0); ">
  </div>
 
  <a id="newchat" href="/">
    <img src="/img/icon-newchat.png" alt="">
  </a>
 
- <div style="position:fixed; bottom: 0px; width: 100%; background-color: white; opacity: 0.6;">
+ <div style="position:fixed; bottom: 0px; width: 100%; background-color: white; opacity: 0.6; color: transparent;">
+
  	<div style="margin: 0 auto; max-width: 440px">
  		<div style="margin: 20px 0;">
  			<input type="text" name="country" value="https://www.vapor.im/room/{{link}}" style="font-size: 16px; font-style:'Helvetica' font-weight: lighter; margin: 0; padding: 5px; width: 400px;"  readonly/>

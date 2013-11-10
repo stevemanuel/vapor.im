@@ -109,7 +109,7 @@ body {
   text-shadow: 0 0 50px #ddd;
 }
 
-#sender {
+.sender {
   padding: 10px;
   color: #f9e1e1;
   font-size: 24px;
@@ -124,7 +124,7 @@ body {
   color: black;
 }
 
-#receiver {
+.receiver {
   padding: 10px;
   color: #d6d6d6;
   font-size: 24px;
