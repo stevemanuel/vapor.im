@@ -1,6 +1,5 @@
 Template.chatroom.helpers({
   notAlone: function() {
-
     var currentVapors = Vapors.find({chatroom_id: Session.get('currentChatroomId')});
     var currentVaporCount = currentVapors.count();
 
@@ -42,7 +41,8 @@ Template.chatroom.helpers({
 });
 
 var createVapor = function(chatroomId) {
-  var vapor = Vapors.insert({chatroom_id: chatroomId, message: "", last_heartbeat: new Date().getTime()});
+  var vapor = Vapors.insert({chatroom_id: chatroomId, message: "", last_heartbeat: new Date().getTime(), last_message: 0});
+  console.log("created Vapor " + vapor);
   $.cookie(chatroomId, vapor);
 };
 
@@ -61,14 +61,12 @@ Template.chatroom.rendered = function () {
     var myVaporId =  $.cookie(currentChatroomId);
     var myVapor = Vapors.findOne(myVaporId);
 
-    
     if (typeof myVapor === "undefined") {
       createVapor(currentChatroomId);
       console.log("created vapor for previous user");
     }
     
   } else {
-
     if (currentVaporCount == 0) {
       createVapor(currentChatroomId);
     } else if (currentVaporCount == 1) {
@@ -78,14 +76,13 @@ Template.chatroom.rendered = function () {
     }
   }
 
-  $("#sender").one('click', function(e) { $("#chat").focus() })
-  $("#chat").focus()
+  $("#sender").one('click', function(e) { $("#chat").focus() });
+  $("#chat").focus();
 };
 
 Template.chatroom.preserve(["#sender"]);
 
 Template.chatroom.events({
-
   // input in the event listens better on desktop for events in <input>
   'input, keypress #chat': function(e) {
     var currentChatroomId = Session.get('currentChatroomId');
@@ -93,10 +90,13 @@ Template.chatroom.events({
     Vapors.update($.cookie(currentChatroomId), {$set: {message: newMessage}});
     console.log(Vapors.findOne($.cookie(currentChatroomId)).message);
     if (e.keyCode === 13 && newMessage !== "") {
-      Vapors.update($.cookie(currentChatroomId), {$set: {message: ""}});
+      Vapors.update($.cookie(currentChatroomId), {$set: {message: "", last_message: new Date().getTime()}});
+
       $(e.target).val("");
+      
       var message = $('#sender').clone();
       $("#messages").css("position", "relative").append(message);
+      
       message.css("position", "relative").animate({
         'top': "-100px",
         'left': "0",
@@ -105,6 +105,7 @@ Template.chatroom.events({
       }, 500, function() {
         message.remove();
       });
+    
     }
 
     console.log("keypress sender");
@@ -113,13 +114,28 @@ Template.chatroom.events({
   }
 });
 
+Template.chatroom.currentVapors = function () {
+  var chatroom_id = Session.get('currentChatroomId');
+  return Vapors.find({chatroom_id: chatroom_id}, {sort: {last_message: 1}});
+};
+
+Template.chatroom.vaporIs = function (vaporMode) {
+  var chatroom_id = Session.get('currentChatroomId');
+  
+  //console.log(this._id + " " + $.cookie(chatroom_id));
+  
+  if (this._id == $.cookie(chatroom_id))
+    return "sender" == vaporMode;
+  else
+    return "receiver" == vaporMode;
+};
+
 Template.chatroom.created = function() {
   console.log("created called");
 
   var chat = $("#chat"),
       messages = $("#messages"),
       sender = $("#sender"),
-      receiver = $('<div id="receiver"><span class="cursor">|&nbsp;</span>participant\'s message...</div>'),
       status = $("#status"),
       cursorHTML = $("<span>").addClass("cursor").html("|&nbsp;"),
       receiverId;
@@ -135,7 +151,7 @@ Template.chatroom.created = function() {
     Vapors.update($.cookie(currentChatroomId), {$set: {last_heartbeat: now}});
 
     Vapors.find({chatroom_id: currentChatroomId}).forEach(function(v) {
-      if(v.last_heartbeat < (now - 11000)) {
+      if(v.last_heartbeat < (now - 20000)) {
         console.log("going to remove " + v._id)
         Vapors.remove(v._id);
       }

@@ -3,5 +3,5 @@ Meteor.publish('chatrooms', function(currentChatroomId) {
 });
 
 Meteor.publish('vapors', function(id) {
-	return Vapors.find({chatroom_id: id});
+	return Vapors.find({chatroom_id: id}, {sort: {last_message: 1}});
 });
