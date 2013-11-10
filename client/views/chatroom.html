@@ -1,5 +1,8 @@
 <template name="chatroom">
 <div id="container">
+  <div class="roomName">
+    {{roomName}}
+  </div>
   <div id="messages">
   	{{#if notAlone}}
       <div id="receiver">{{receiverMessage}}<span class="cursor">|&nbsp;</span></div>
