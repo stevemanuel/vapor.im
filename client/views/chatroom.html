@@ -4,7 +4,7 @@
   {{#if roomName}}
     {{roomName}}
   {{else}}
-    Vapor.im
+    Vapor.IM
   {{/if}}
   </div>
   <div id="messages">
@@ -19,7 +19,7 @@
 		    {{/if}}
 		{{/each}}
     {{else}}
-        <div>Waiting for participant to join...</div>
+        <div id="pending-recipient">Waiting for participant to join...</div>
         <div id="sender">{{senderMessage}}<span class="cursor">|&nbsp;</span></div>
     {{/if}}
   </div>

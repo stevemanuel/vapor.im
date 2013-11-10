@@ -20,7 +20,7 @@ body {
   background-image: -webkit-linear-gradient(left, #C928BE 43%, #FF8927 100%);
   background-image: -ms-linear-gradient(left, #C928BE 43%, #FF8927 100%);
   background-image: linear-gradient(to left, #C928BE 43%, #FF8927 100%);
-  
+
   max-width: 480px;
   margin: 0 auto;
   height: 1024px;
@@ -103,6 +103,7 @@ body {
   color: #f9e1e1;
   font-size: 24px;
   text-align: right;
+  border-bottom: solid rgba(255,255,255,0.3) 1px;
 }
 
 .darkenSender {
@@ -117,6 +118,7 @@ body {
   padding: 10px;
   color: #d6d6d6;
   font-size: 24px;
+  border-bottom: solid rgba(255,255,255,0.3) 1px;
 }
 
 .cursor {
