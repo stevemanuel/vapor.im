@@ -5,7 +5,7 @@
     "vapor.im",
     "www.vapor.im"
   ],
-  "version": "0.1.9-4",
+  "version": "0.2.0",
   "dependencies": {
     "fibers": "1.0.0"
   },
