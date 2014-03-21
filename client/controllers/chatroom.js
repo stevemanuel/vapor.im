@@ -51,6 +51,10 @@ Template.chatroom.helpers({
     return Session.get('currentChatroomId');
   },
 
+  host: function() {
+    return window.location.host;
+  },
+
   senderMessage: function() {
     return $("#chat").val();
   },
